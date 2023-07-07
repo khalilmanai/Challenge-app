@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "coding-challenge-app",
-    "slug": "coding-challenge-app",
+    "slug": "challenge-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.khalil_manai.challengeapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "396153dd-6712-4ec0-a173-128fd966eb6a"
+      }
+    },
+    "owner": "khalil_manai"
   }
 }
