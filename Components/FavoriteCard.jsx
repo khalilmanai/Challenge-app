@@ -1,11 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const FavoriteCard = ({ movie, onDelete }) => {
   const { poster_path, title, vote_average } = movie;
   const imageUri = `https://image.tmdb.org/t/p/w500/${poster_path}`;
-
+ const navigation = useNavigation()
   const handleDelete = async () => {
     try {
       // Retrieve the favorite movies from AsyncStorage

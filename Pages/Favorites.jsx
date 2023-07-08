@@ -6,6 +6,7 @@ import {
   FlatList,
   RefreshControl,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
@@ -28,7 +29,7 @@ const Favorites = () => {
         setFavoriteMovies(JSON.parse(favorites));
       }
     } catch (error) {
-      console.log("Error fetching favorite movies:", error);
+      console.error("Error fetching favorite movies:", error);
     }
   };
 
@@ -38,45 +39,61 @@ const Favorites = () => {
   };
 
   const handleDeleteMovie = (movieId) => {
-    // Remove the movie from the list immediately
-    setFavoriteMovies((prevMovies) =>
-      prevMovies.filter((movie) => movie.id !== movieId)
+    Alert.alert(
+      "Confirmation",
+      "Are you sure you want to delete this movie from favorites?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            setFavoriteMovies((prevMovies) =>
+              prevMovies.filter((movie) => movie.id !== movieId)
+            );
+          },
+        },
+      ]
     );
   };
-
+  
   const renderFavoriteMovie = ({ item }) => (
     <FavoriteCard movie={item} onDelete={handleDeleteMovie} />
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.goBack()}
-        >
-          <AntDesign name="arrowleft" size={32} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.title}>Favorites</Text>
-      </View>
-      {favoriteMovies.length > 0 ? (
-        <FlatList
-          data={favoriteMovies}
-          renderItem={renderFavoriteMovie}
-          keyExtractor={(item) => item.id.toString()}
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-          }
-        />
-      ) : (
-        <View style={styles.textContainer}>
-          <Text style={styles.emptyText}>No favorite movies found</Text>
+
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.goBack()}
+          >
+            <AntDesign name="arrowleft" size={32} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.title}>Favorites</Text>
         </View>
-      )}
-    </View>
-
-
+        {favoriteMovies.length > 0 ? (
+          <FlatList
+            data={favoriteMovies}
+            renderItem={renderFavoriteMovie}
+            keyExtractor={(item) => item.id.toString()}
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+              />
+            }
+          />
+        ) : (
+          <View style={styles.textContainer}>
+            <Text style={styles.emptyText}>No favorite movies found</Text>
+          </View>
+        )}
+      </View>
   );
 };
 
@@ -91,6 +108,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    marginBottom:'10%'
   },
   backButton: {
     position: "absolute",
@@ -103,14 +121,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   emptyText: {
-    Margin: 20,
+  
     fontSize: 16,
     fontWeight: "bold",
     color: "gray",
   },
   textContainer: {
-    height:"100%",
+    height: "100%",
     justifyContent: "center",
-    alignItems:'center'
+    alignItems: "center",
   },
 });

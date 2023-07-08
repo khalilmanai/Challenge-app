@@ -15,14 +15,14 @@ import { useNavigation } from "@react-navigation/native";
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
-const navigation = useNavigation()
+  const navigation = useNavigation();
   useEffect(() => {
     const getMovies = async () => {
       try {
         const data = await fetchMovies();
         setMovies(data);
       } catch (error) {
-        console.log("Error fetching movies:", error);
+        console.error("Error fetching movies:", error);
       }
     };
 
@@ -45,9 +45,11 @@ const navigation = useNavigation()
     <View style={styles.container}>
       <View style={styles.header}>
         <SearchBanner onChangeText={updateSearch} value={search} />
-        <TouchableOpacity onPress={() => {
-          navigation.navigate('Favorites')
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Favorites");
+          }}
+        >
           <AntDesign name="heart" size={32} color="red" />
         </TouchableOpacity>
       </View>
@@ -75,8 +77,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-
-
   },
   movieList: {
     flexGrow: 1,

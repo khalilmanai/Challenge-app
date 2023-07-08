@@ -2,21 +2,17 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SearchBar } from '@rneui/themed';
 
-const SearchBanner = ({ search, onChangeText }) => {
-  const updateSearch = (text) => {
-    onChangeText(text);
-  };
-
+const SearchBanner = ({ value, onChangeText }) => {
   return (
     <SearchBar
       platform="default"
-      containerStyle={styles.searchBarContainer}
+      containerStyle={styles.searchBarContainer} // Updated style name
       inputContainerStyle={styles.searchBarInputContainer}
       inputStyle={styles.searchBarInput}
       round
-      onChangeText={updateSearch}
+      onChangeText={onChangeText}
       lightTheme
-      value={search}
+      value={value} // Updated prop name
       placeholder="Search..."
       placeholderTextColor="white"
       key="search-bar"
@@ -27,10 +23,7 @@ const SearchBanner = ({ search, onChangeText }) => {
 export default SearchBanner;
 
 const styles = StyleSheet.create({
-  searchContainer: {
-    marginBottom: 10,
-  },
-  searchBarContainer: {
+  searchBarContainer: { // Updated style name
     width: '70%',
     backgroundColor: 'transparent',
     borderBottomWidth: 0,

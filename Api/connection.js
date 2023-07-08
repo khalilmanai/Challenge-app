@@ -6,7 +6,8 @@ const API_KEY = '5565f48351a0ea1ff8489791809e72b2'
 export const fetchMovies = async () => {
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
+      `
+      https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`
     );
  
     return response.data.results;
@@ -17,12 +18,12 @@ export const fetchMovies = async () => {
 };
 
 
-export const fetchImage = async (id) =>{
-    try{
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/images`)
-        return response.data
-    }catch(error){
-        console.error(error)
-    
-    }
+
+export const fetchDetails = async (MovieId)=>{
+  try {
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${MovieId}?api_key=${API_KEY}`)
+    return response.data
+  }catch(error){
+    console.error('Error  fetching movie details : ' , error)
+  }
 }
